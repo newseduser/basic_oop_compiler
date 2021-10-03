@@ -76,6 +76,11 @@ int codeGen(struct tnode *t,FILE * target_file){
             case '/' : 
                         fprintf(target_file,"DIV R%d, R%d\n",l,r);
                         break;
+            case 'c' :
+                        
+            default :
+                        break;
+
         }
         freeReg();
     }
