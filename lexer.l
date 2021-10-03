@@ -12,7 +12,7 @@
 "end" {return END;}
 "read" {return READ;}
 "write" {return WRITE;}
-[a-z] {yylval = makeVarNode(yytext); return ID;}
+[a-z]+ {yylval = makeVarNode(yytext); return ID;}
 [0-9]+	{number = atoi(yytext); yylval = makeLeafNode(number); return NUM;}
 "+"	{return PLUS;}
 "-"	{return MINUS;}
