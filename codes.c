@@ -66,20 +66,17 @@ int codeGen(struct tnode *t,FILE * target_file){
         switch(*(t->op)){
             case '+' : 
                         fprintf(target_file,"ADD R%d, R%d\n",l,r);
-                        freeReg();
                         break;
             case '-' : 
                         fprintf(target_file,"SUB R%d, R%d\n",l,r);
-                        freeReg();
                         break;
             case '*' : 
                         fprintf(target_file,"MUL R%d, R%d\n",l,r);
-                        freeReg();
                         break;
             case '/' : 
                         fprintf(target_file,"DIV R%d, R%d\n",l,r);
-                        freeReg();
                         break;
         }
+        freeReg();
     }
 }
