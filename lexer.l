@@ -8,14 +8,21 @@
 
 %%
 
+"begin" {return BEG;}
+"end" {return END;}
+"read" {return READ;}
+"write" {return WRITE;}
+[a-z] {yylval = makeVarNode(yytext); return ID;}
 [0-9]+	{number = atoi(yytext); yylval = makeLeafNode(number); return NUM;}
 "+"	{return PLUS;}
 "-"	{return MINUS;}
 "*"	{return MUL;}
 "/"	{return DIV;}
+"=" {return ASG;}
+";" {return LINE_ENDER;}
 [ \t]	{}
 [()]	{return *yytext;}
-[\n]	{return END;}
+[\n]	{return NEWLINE;}
 .	{yyerror("unknown character\n");exit(1);}
 
 %%
