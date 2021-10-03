@@ -77,9 +77,10 @@ int codeGen(struct tnode *t,FILE * target_file){
                         fprintf(target_file,"DIV R%d, R%d\n",l,r);
                         break;
             case 'c' :
-                        
-            default :
                         break;
+            default :
+                        printf("Error");
+                        exit(1);
 
         }
         freeReg();
