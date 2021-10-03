@@ -15,19 +15,25 @@
 
 %%
 
-program : expr END	{
-				$$ = $2;
-				parse_tree=$1;
+program : BEG NEWLINE Slist END {
+				$$ = $3;
+				parse_tree=$3;
+				printf("[+] Syntax Matched!\n");fflush(stdout);
                 return 0;
-			}
-		;
+};
 
+Slist : Slist Stmt LINE_ENDER NEWLINE {$$ = createTree(0,'c',NULL,$1,$2);} | Stmt LINE_ENDER NEWLINE {$$=$1;} | Slist NEWLINE {$$=$1;};
+Stmt : InputStmt {$$=$1;} | OutputStmt {$$=$1;} | AsgStmt {$$=$1;} ;
+InputStmt : READ '(' ID ')'  {$$ = makeActionNode('r',$3);};
+OutputStmt : WRITE '(' expr ')'  {$$ = makeActionNode('w',$3);};
+AsgStmt : expr ASG expr  {$$ = makeOperatorNode('=',$1,$3);};
 expr : expr PLUS expr		{$$ = makeOperatorNode('+',$1,$3);}
 	 | expr MINUS expr  	{$$ = makeOperatorNode('-',$1,$3);}
 	 | expr MUL expr	{$$ = makeOperatorNode('*',$1,$3);}
 	 | expr DIV expr	{$$ = makeOperatorNode('/',$1,$3);}
 	 | '(' expr ')'		{$$ = $2;}
 	 | NUM			{$$ = $1;}
+	 | ID			{$$ = $1;}
 	 ;
 
 %%
